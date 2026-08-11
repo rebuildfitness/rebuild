@@ -1,154 +1,31 @@
-
-let APPDATA=null;
-let selectedDay=null;
-let timerInterval=null;
-
-const STORE_KEY="rebuild_app_v1";
-function store(){ return JSON.parse(localStorage.getItem(STORE_KEY)||'{"phase":"weeks12","readiness":{},"daily":{},"sets":{},"history":[]}');}
-function save(s){ localStorage.setItem(STORE_KEY,JSON.stringify(s)); }
-
-function todayName(){return ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"][new Date().getDay()];}
-function dateKey(){return new Date().toISOString().slice(0,10);}
-function plan(){ const s=store(); return APPDATA[s.phase] || APPDATA.weeks12; }
-
-async function init(){
-  APPDATA=await fetch("data.json").then(r=>r.json());
-  let s=store();
-  document.getElementById("phaseSelect").value=s.phase;
-  selectedDay=todayName();
-  loadReadiness();
-  loadDaily();
-  renderHome();
-  renderDayNav();
-  renderWorkout();
-  renderLibrary();
-  renderHistory();
-  if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(()=>{});}
-}
-function changePhase(){
-  let s=store(); s.phase=document.getElementById("phaseSelect").value; save(s);
-  document.getElementById("phaseBadge").textContent=s.phase==="weeks12"?"Weeks 1–2":"Weeks 3–4";
-  renderHome(); renderWorkout();
-}
-function showView(v){
-  ["home","workout","library","history"].forEach(x=>{
-    document.getElementById(x+"View").classList.toggle("hidden",x!==v);
-    const n=document.getElementById("nav"+x.charAt(0).toUpperCase()+x.slice(1));
-    if(n)n.classList.toggle("active",x===v);
-  });
-  if(v==="history")renderHistory();
-}
-function renderHome(){
-  let s=store();
-  document.getElementById("phaseBadge").textContent=s.phase==="weeks12"?"Weeks 1–2":"Weeks 3–4";
-  const d=plan()[todayName()];
-  document.getElementById("todayTitle").textContent=todayName()+" · "+d.title;
-  document.getElementById("todayNotes").textContent=d.notes||"";
-  const items=d.items||[];
-  const key=dateKey()+"|"+todayName();
-  const done=(s.sets[key]||{}).doneExercises||[];
-  const pct=items.length?Math.round(done.length/items.length*100):0;
-  document.getElementById("todayProgress").style.width=pct+"%";
-  document.getElementById("progressText").textContent=pct+"% complete";
-}
-function saveReadiness(){
-  const a=+document.getElementById("achillesPain").value||0;
-  const b=+document.getElementById("backPain").value||0;
-  const st=+document.getElementById("stiffness").value||0;
-  const sw=document.getElementById("swelling").value;
-  let s=store(); s.readiness[dateKey()]={achilles:a,back:b,stiffness:st,swelling:sw}; save(s);
-  showReadiness(a,b,st,sw);
-}
-function loadReadiness(){
-  const r=store().readiness[dateKey()]||{};
-  if(r.achilles!=null)document.getElementById("achillesPain").value=r.achilles;
-  if(r.back!=null)document.getElementById("backPain").value=r.back;
-  if(r.stiffness!=null)document.getElementById("stiffness").value=r.stiffness;
-  if(r.swelling)document.getElementById("swelling").value=r.swelling;
-  showReadiness(r.achilles||0,r.back||0,r.stiffness||0,r.swelling||"no");
-}
-function showReadiness(a,b,st,sw){
-  const el=document.getElementById("readinessStatus");
-  el.className="status ";
-  if(a>=5||b>=5||sw==="yes"){el.classList.add("red");el.textContent="🔴 Do not progress loading today. Stop painful movements and seek evaluation for new neurologic symptoms, severe pain, or worsening function.";}
-  else if(a>=3||b>=3||sw==="mild"||st>=20){el.classList.add("yellow");el.textContent="🟡 Hold progression. Reduce load, range, volume, or exercise difficulty and reassess tomorrow.";}
-  else {el.classList.add("green");el.textContent="🟢 Ready for planned training if movement remains normal.";}
-}
-function saveDaily(){
-  let s=store(); s.daily[dateKey()]={steps:+document.getElementById("steps").value||0,bodyweight:+document.getElementById("bodyweight").value||null}; save(s);
-}
-function loadDaily(){
-  const d=store().daily[dateKey()]||{};
-  if(d.steps)document.getElementById("steps").value=d.steps;
-  if(d.bodyweight)document.getElementById("bodyweight").value=d.bodyweight;
-}
-function openWorkoutToday(){ selectedDay=todayName(); renderDayNav(); renderWorkout(); showView("workout");}
-function renderDayNav(){
-  const el=document.getElementById("dayNav"); if(!el)return;
-  const days=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-  el.innerHTML=days.map(d=>`<button class="daypill ${d===selectedDay?'active':''}" onclick="selectDay('${d}')">${d.slice(0,3)}</button>`).join("");
-}
-function selectDay(d){selectedDay=d;renderDayNav();renderWorkout();}
-function demoLink(q){return "https://www.youtube.com/results?search_query="+encodeURIComponent(q);}
-function setsCount(dose){
-  const m=String(dose).match(/^(\d+)\s*[×x]/); return m?+m[1]:1;
-}
-function renderWorkout(){
-  if(!APPDATA)return;
-  const d=plan()[selectedDay];
-  document.getElementById("workoutHeading").textContent=selectedDay+" · "+d.title;
-  document.getElementById("cardioBlock").innerHTML=d.cardio?`<div class="metric" style="margin-bottom:10px"><strong>Cardio:</strong> ${d.cardio}</div>`:"";
-  const key=dateKey()+"|"+selectedDay;
-  let s=store(); const st=s.sets[key]||{doneExercises:[],setChecks:{}};
-  document.getElementById("exerciseList").innerHTML=(d.items||[]).map(id=>{
-    const ex=APPDATA.exerciseLibrary[id]; const n=setsCount(ex.dose);
-    const checks=Array.from({length:n},(_,i)=>`<label class="setcheck"><input type="checkbox" ${((st.setChecks[id]||[])[i])?'checked':''} onchange="toggleSet('${id}',${i},this.checked)">Set ${i+1}</label>`).join("");
-    return `<div class="ex">
-      <div class="exhead"><h3>${ex.name}</h3><span class="dose">${ex.dose}</span></div>
-      <div class="cue">${ex.how}</div><div class="avoid"><strong>Avoid:</strong> ${ex.avoid}</div>
-      <div class="sets">${checks}</div>
-      <div class="actions"><a class="btn secondary" href="${demoLink(ex.query)}" target="_blank">Watch Demo</a><button class="primary" onclick="markExercise('${id}')">${st.doneExercises.includes(id)?'Completed ✓':'Mark Complete'}</button></div>
-    </div>`;
-  }).join("") + `<div class="cue" style="margin-top:12px"><strong>Coach note:</strong> ${d.notes||""}</div>`;
-}
-function toggleSet(id,i,val){
-  let s=store(); const key=dateKey()+"|"+selectedDay; s.sets[key]=s.sets[key]||{doneExercises:[],setChecks:{}};
-  s.sets[key].setChecks[id]=s.sets[key].setChecks[id]||[]; s.sets[key].setChecks[id][i]=val; save(s);
-}
-function markExercise(id){
-  let s=store(); const key=dateKey()+"|"+selectedDay; s.sets[key]=s.sets[key]||{doneExercises:[],setChecks:{}};
-  let arr=s.sets[key].doneExercises;
-  if(arr.includes(id))arr=arr.filter(x=>x!==id); else arr.push(id);
-  s.sets[key].doneExercises=arr; save(s); renderWorkout(); renderHome();
-}
-function completeWorkout(){
-  let s=store(); const key=dateKey()+"|"+selectedDay;
-  const d=plan()[selectedDay]; const done=(s.sets[key]||{}).doneExercises||[];
-  s.history.unshift({date:dateKey(),day:selectedDay,title:d.title,completed:done.length,total:(d.items||[]).length,phase:s.phase});
-  save(s); renderHistory(); alert("Workout saved to history.");
-}
-function renderLibrary(){
-  if(!APPDATA)return;
-  const q=(document.getElementById("search")?.value||"").toLowerCase();
-  const items=Object.values(APPDATA.exerciseLibrary).filter(ex=>ex.name.toLowerCase().includes(q));
-  document.getElementById("libraryList").innerHTML=items.map(ex=>`<div class="card">
-    <div class="exhead"><h3>${ex.name}</h3><span class="dose">${ex.dose}</span></div>
-    <div class="cue">${ex.how}</div><div class="avoid"><strong>Avoid:</strong> ${ex.avoid}</div>
-    <div class="actions"><a class="btn primary" href="${demoLink(ex.query)}" target="_blank">Watch Demo</a></div>
-  </div>`).join("");
-}
-function renderHistory(){
-  const h=store().history||[];
-  document.getElementById("historyList").innerHTML=h.length?h.map(x=>`<div class="historyItem"><strong>${x.date} · ${x.day}</strong><div>${x.title}</div><div class="tiny">${x.completed}/${x.total} exercises completed · ${x.phase==="weeks12"?"Weeks 1–2":"Weeks 3–4"}</div></div>`).join(""):`<div class="cue">No completed workouts yet.</div>`;
-}
-function exportData(){
-  const blob=new Blob([JSON.stringify(store(),null,2)],{type:"application/json"});
-  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="rebuild-backup-"+dateKey()+".json";a.click();URL.revokeObjectURL(a.href);
-}
-function startTimer(sec){
-  if(timerInterval)clearInterval(timerInterval);
-  let t=sec; const disp=document.getElementById("timerDisplay");
-  const draw=()=>{const m=String(Math.floor(t/60)).padStart(2,"0"),s=String(t%60).padStart(2,"0");disp.textContent=m+":"+s;};
-  draw(); timerInterval=setInterval(()=>{t--;draw();if(t<=0){clearInterval(timerInterval);navigator.vibrate&&navigator.vibrate([200,100,200]);}},1000);
-}
+let DATA=null,selectedDay=null,timerInterval=null;const KEY='rebuild_app_v2';
+function blank(){return{phase:'restore',phaseStart:new Date().toISOString().slice(0,10),readiness:{},daily:{},logs:[],drafts:{}}}
+function store(){let s=JSON.parse(localStorage.getItem(KEY)||'null');if(!s){let old=JSON.parse(localStorage.getItem('rebuild_app_v1')||'null');s=blank();if(old){s.daily=old.daily||{};s.readiness=old.readiness||{}}}return s}
+function save(s){localStorage.setItem(KEY,JSON.stringify(s))}function dateKey(d=new Date()){return d.toISOString().slice(0,10)}function todayName(){return['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][new Date().getDay()]}
+function phase(){let id=store().phase;return DATA.phases.find(x=>x.id===id)||DATA.phases[0]}function plan(){return DATA.plans[store().phase]||DATA.plans.restore}function demo(q){return'https://www.youtube.com/results?search_query='+encodeURIComponent(q)}function workoutKey(){return dateKey()+'|'+selectedDay+'|'+store().phase}function parseSets(x){return Math.max(1,parseInt(x)||1)}function prescribed(ex){return`${ex.sets} × ${ex.reps}`}
+async function init(){DATA=await fetch('data.json').then(r=>r.json());selectedDay=todayName();buildPhaseSelect();loadReadiness();loadDaily();renderAll();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{})}
+function buildPhaseSelect(){let s=store(),sel=document.getElementById('phaseSelect');sel.innerHTML=DATA.phases.map(p=>`<option value="${p.id}">${p.name} · Weeks ${p.weeks}</option>`).join('');sel.value=s.phase}
+function renderAll(){renderHome();renderDayNav();renderWorkout();renderLibrary();renderHistory();renderProgress()}
+function showView(v){['home','workout','progress','library','history'].forEach(x=>{document.getElementById(x+'View').classList.toggle('hidden',x!==v);let n=document.getElementById('nav'+x[0].toUpperCase()+x.slice(1));if(n)n.classList.toggle('active',x===v)});if(v==='progress')renderProgress();if(v==='history')renderHistory()}
+function renderHome(){let s=store(),p=phase(),d=plan()[todayName()];phaseBadge.textContent=p.name;phaseGoal.textContent=p.goal+' · Target RPE '+p.rpe;phaseGate.textContent='Progression gate: '+p.gate;todayTitle.textContent=todayName()+' · '+d.title;todayNotes.textContent=d.notes||'';let draft=s.drafts[dateKey()+'|'+todayName()+'|'+s.phase]||{},total=(d.items||[]).length,done=Object.values(draft).filter(x=>x&&x.complete).length,pct=total?Math.round(done/total*100):0;todayProgress.style.width=pct+'%';progressText.textContent=pct+'% complete'}
+function saveReadiness(){let vals={achilles:+achillesPain.value||0,back:+backPain.value||0,wrist:+wristPain.value||0,stiffness:+stiffness.value||0,swelling:swelling.value,sleep:+sleep.value||0,sleepQuality:+sleepQuality.value||0};let s=store();s.readiness[dateKey()]=vals;save(s);showReadiness(vals);renderProgress()}
+function loadReadiness(){let r=store().readiness[dateKey()]||{};achillesPain.value=r.achilles??0;backPain.value=r.back??0;wristPain.value=r.wrist??0;stiffness.value=r.stiffness??0;swelling.value=r.swelling||'no';sleep.value=r.sleep??'';sleepQuality.value=r.sleepQuality??'';showReadiness(r)}
+function showReadiness(r={}){let a=r.achilles||0,b=r.back||0,w=r.wrist||0,st=r.stiffness||0,sw=r.swelling||'no',el=readinessStatus,s=store(),recent=Object.entries(s.readiness).sort((x,y)=>y[0].localeCompare(x[0])).slice(0,3).map(x=>x[1]),poor=recent.filter(x=>(x.sleepQuality||0)>0&&(x.sleepQuality||0)<=2).length>=2;el.className='status ';if(a>=5||b>=5||w>=5||sw==='yes'){el.classList.add('red');el.textContent='🔴 Do not progress loading today. Stop movements causing sharp or worsening symptoms.'}else if(a>=3||b>=3||w>=3||sw==='mild'||st>=20||poor){el.classList.add('yellow');el.textContent='🟡 Hold progression. Reduce load, range, volume or difficulty as needed. Repeated poor sleep also argues against adding training stress.'}else{el.classList.add('green');el.textContent='🟢 Proceed with planned training if movement remains normal. One poor night alone does not automatically reduce training.'}}
+function saveDaily(){let s=store();s.daily[dateKey()]={steps:+steps.value||0,bodyweight:+bodyweight.value||null};save(s);renderProgress()}function loadDaily(){let d=store().daily[dateKey()]||{};steps.value=d.steps||'';bodyweight.value=d.bodyweight||''}
+function changePhase(){let s=store();s.phase=phaseSelect.value;s.phaseStart=dateKey();save(s);renderAll()}function openWorkoutToday(){selectedDay=todayName();renderDayNav();renderWorkout();showView('workout')}
+function renderDayNav(){let days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];dayNav.innerHTML=days.map(d=>`<button class="daypill ${d===selectedDay?'active':''}" onclick="selectDay('${d}')">${d.slice(0,3)}</button>`).join('')}function selectDay(d){selectedDay=d;renderDayNav();renderWorkout()}
+function latestExerciseLog(id){let logs=store().logs.filter(l=>l.exercises&&l.exercises[id]&&l.exercises[id].sets?.some(s=>s.done));return logs.length?logs[0].exercises[id]:null}
+function recommendation(id,ex){let last=latestExerciseLog(id);if(!last)return'Start conservatively and establish a clean baseline.';let sets=last.sets.filter(x=>x.done&&x.reps);if(!sets.length)return'Repeat current prescribed range and establish completed-set data.';let reps=sets.map(x=>+x.reps),rir=sets.map(x=>+x.rir||0),weights=sets.map(x=>+x.weight||0),range=ex.reps.match(/(\d+)[^\d]+(\d+)/);if(!range)return'Repeat and progress only if technique and symptoms remain stable.';let lo=+range[1],hi=+range[2],allTop=reps.every(x=>x>=hi),minRir=Math.min(...rir),sameWt=weights.every(x=>x===weights[0]);if(allTop&&minRir>=2&&sameWt)return`Progress: add the smallest practical load next time, then return toward ${lo} reps.`;if(reps.every(x=>x>=lo)&&minRir>=2)return`Maintain load and add reps toward ${hi} across all sets.`;if(minRir<=0)return'Hold or reduce load next time; avoid grinding and restore 1–3 RIR.';return'Repeat the load and improve consistency, control, or reps before adding weight.'}
+function renderWorkout(){if(!DATA)return;let d=plan()[selectedDay],s=store(),key=workoutKey(),draft=s.drafts[key]||{};workoutHeading.textContent=selectedDay+' · '+d.title;cardioBlock.innerHTML=d.cardio?`<div class="metric" style="margin-bottom:9px"><strong>Cardio:</strong> ${d.cardio}</div>`:'';exerciseList.innerHTML=(d.items||[]).map(id=>{let ex=DATA.exerciseLibrary[id],n=parseSets(ex.sets),cur=draft[id]||{sets:[]},prev=latestExerciseLog(id),prevtxt=prev?prev.sets.filter(x=>x.done).map(x=>`${x.weight||0} lb × ${x.reps||0} @ RIR ${x.rir??'—'}`).join(' · '):'No previous logged performance.';let rows=Array.from({length:n},(_,i)=>{let x=cur.sets[i]||{};return`<div class="setrow"><div class="setnum">${i+1}</div><div><label>lb</label><input type="number" step="2.5" value="${x.weight??''}" onchange="setField('${id}',${i},'weight',this.value)"></div><div><label>reps</label><input type="number" value="${x.reps??''}" onchange="setField('${id}',${i},'reps',this.value)"></div><div><label>RIR</label><input type="number" min="0" max="6" value="${x.rir??''}" onchange="setField('${id}',${i},'rir',this.value)"></div><input class="check" type="checkbox" ${x.done?'checked':''} onchange="setField('${id}',${i},'done',this.checked)"></div>`}).join('');return`<div class="ex"><div class="exhead"><h3>${ex.name}</h3><span class="dose">${prescribed(ex)}</span></div><div class="prev"><strong>Last:</strong> ${prevtxt}</div><div class="recommend">${recommendation(id,ex)}</div><div class="cue">${ex.how}</div><div class="avoid"><strong>Avoid:</strong> ${ex.avoid}</div>${rows}<div class="actions"><a class="btn secondary" href="${demo(ex.query)}" target="_blank">Watch Demo</a><button class="primary" onclick="toggleComplete('${id}')">${cur.complete?'Completed ✓':'Mark Complete'}</button></div></div>`}).join('')+`<div class="cue"><strong>Coach note:</strong> ${d.notes||''}</div>`;workoutNotes.value=(s.drafts[key]?.notes)||'';workoutNotes.onchange=()=>{let ss=store();ss.drafts[key]=ss.drafts[key]||{};ss.drafts[key].notes=workoutNotes.value;save(ss)}}
+function setField(id,i,field,val){let s=store(),key=workoutKey();s.drafts[key]=s.drafts[key]||{};s.drafts[key][id]=s.drafts[key][id]||{sets:[]};s.drafts[key][id].sets=s.drafts[key][id].sets||[];s.drafts[key][id].sets[i]=s.drafts[key][id].sets[i]||{};s.drafts[key][id].sets[i][field]=field==='done'?val:(val===''?'':+val);save(s)}
+function toggleComplete(id){let s=store(),key=workoutKey();s.drafts[key]=s.drafts[key]||{};s.drafts[key][id]=s.drafts[key][id]||{sets:[]};s.drafts[key][id].complete=!s.drafts[key][id].complete;save(s);renderWorkout();renderHome()}
+function completeWorkout(){let s=store(),key=workoutKey(),d=plan()[selectedDay],draft=s.drafts[key]||{},exercises={};for(let id of d.items||[]){if(draft[id])exercises[id]=draft[id]}let entry={date:dateKey(),day:selectedDay,title:d.title,phase:s.phase,notes:draft.notes||'',exercises,readiness:s.readiness[dateKey()]||{}};s.logs.unshift(entry);delete s.drafts[key];save(s);renderAll();alert('Workout saved. Previous-performance memory is now updated.')}
+function renderLibrary(){if(!DATA)return;let q=(search.value||'').toLowerCase(),arr=Object.values(DATA.exerciseLibrary).filter(x=>x.name.toLowerCase().includes(q));libraryList.innerHTML=arr.map(ex=>`<div class="card"><div class="exhead"><h3>${ex.name}</h3><span class="dose">${prescribed(ex)}</span></div><div class="cue">${ex.how}</div><div class="avoid"><strong>Avoid:</strong> ${ex.avoid}</div><div class="actions"><a class="btn primary" href="${demo(ex.query)}" target="_blank">Watch Demo</a></div></div>`).join('')}
+function renderHistory(){let h=store().logs;historyList.innerHTML=h.length?h.map(x=>{let completed=Object.values(x.exercises||{}).filter(e=>e.complete).length,total=(DATA.plans[x.phase]?.[x.day]?.items||[]).length;return`<div class="historyItem"><strong>${x.date} · ${x.day}</strong><div>${x.title}</div><div class="tiny">${completed}/${total} exercises marked complete · ${DATA.phases.find(p=>p.id===x.phase)?.name||x.phase}</div>${x.notes?`<div class="cue">${x.notes}</div>`:''}</div>`}).join(''):'<div class="cue">No completed workouts yet.</div>'}
+function renderProgress(){if(!DATA)return;let s=store();kpiWorkouts.textContent=s.logs.length;let cutoff=new Date();cutoff.setDate(cutoff.getDate()-30);let recent=s.logs.filter(x=>new Date(x.date)>=cutoff).length;kpiAdherence.textContent=Math.min(100,Math.round(recent/20*100))+'%';let weights=Object.entries(s.daily).filter(([d,v])=>v.bodyweight).sort((a,b)=>a[0].localeCompare(b[0]));kpiWeight.textContent=weights.length?weights.at(-1)[1].bodyweight+' lb':'—';drawBars(weightChart,weights.slice(-14).map(([d,v])=>({d:d.slice(5),v:v.bodyweight})));let stiff=Object.entries(s.readiness).filter(([d,v])=>v.stiffness!=null).sort((a,b)=>a[0].localeCompare(b[0]));drawBars(stiffnessChart,stiff.slice(-14).map(([d,v])=>({d:d.slice(5),v:+v.stiffness||0})));let sleepData=Object.entries(s.readiness).filter(([d,v])=>v.sleepQuality).sort((a,b)=>a[0].localeCompare(b[0])).slice(-14);drawBars(sleepChart,sleepData.map(([d,v])=>({d:d.slice(5),v:+v.sleepQuality||0})));let hrs=sleepData.map(x=>+x[1].sleep||0).filter(Boolean),qs=sleepData.map(x=>+x[1].sleepQuality||0).filter(Boolean);sleepSummary.textContent=qs.length?`Average quality: ${(qs.reduce((a,b)=>a+b,0)/qs.length).toFixed(1)}/5 · Average duration: ${hrs.length?(hrs.reduce((a,b)=>a+b,0)/hrs.length).toFixed(1):'—'} hr · Nights under 7 hr: ${hrs.filter(x=>x<7).length}`:'No sleep-quality data yet.';phaseTimeline.innerHTML=DATA.phases.map(p=>`<div class="phaseRow ${p.id===s.phase?'current':''}"><strong>${p.name}</strong> <span class="tiny">Weeks ${p.weeks} · RPE ${p.rpe}</span><div>${p.goal}</div><div class="gate">${p.gate}</div></div>`).join('')}
+function drawBars(el,arr){if(!arr.length){el.innerHTML='<div class="cue">No data yet.</div>';return}let max=Math.max(...arr.map(x=>x.v),1),min=Math.min(...arr.map(x=>x.v));if(max-min<1)min=0;el.innerHTML=arr.map(x=>`<div class="bar" style="height:${Math.max(8,(x.v-min)/(max-min||max)*100)}%" title="${x.d}: ${x.v}"><span>${x.d}</span></div>`).join('')}
+function evaluateGate(){let s=store(),p=phase(),logs=s.logs.filter(x=>x.phase===p.id),days=(new Date()-new Date(s.phaseStart))/86400000,r=Object.entries(s.readiness).sort((a,b)=>b[0].localeCompare(a[0])).slice(0,7).map(x=>x[1]),red=r.some(x=>(x.achilles||0)>=5||(x.back||0)>=5||(x.wrist||0)>=5||x.swelling==='yes'),yellow=r.some(x=>(x.achilles||0)>=3||(x.back||0)>=3||(x.wrist||0)>=3||x.swelling==='mild'||(x.stiffness||0)>=20),enough=days>=p.minWeeks*7-1,workouts=logs.length>=Math.max(3,p.minWeeks*3),html='';if(red)html='<div class="status red">🔴 Do not advance. Recent symptoms indicate loading should be reduced and clinically reassessed if concerning or persistent.</div>';else if(!enough||!workouts||yellow)html=`<div class="status yellow">🟡 Extend the current block. ${!enough?'Minimum block duration not yet completed. ':''}${!workouts?'More successful training exposures are needed. ':''}${yellow?'Recent symptom data suggests holding progression.':''}</div>`;else html='<div class="status green">🟢 Calendar, adherence and symptom checks support considering the next block. Movement-quality criteria and clinician restrictions still override the app.</div>';gateResult.innerHTML=html}
+function exportData(){let blob=new Blob([JSON.stringify(store(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='rebuild-v2-backup-'+dateKey()+'.json';a.click();URL.revokeObjectURL(a.href)}function importData(inp){let f=inp.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);localStorage.setItem(KEY,JSON.stringify(x));location.reload()}catch(e){alert('That file could not be imported.')}};r.readAsText(f)}
+function openUndoChair(){showView('library');let ids=DATA.microSessions?.undoChair?.items||[];libraryList.innerHTML=`<div class="card"><h2>${DATA.microSessions.undoChair.name}</h2><div class="cue">${DATA.microSessions.undoChair.description}</div></div>`+ids.map(id=>{let ex=DATA.exerciseLibrary[id];return `<div class="card"><div class="exhead"><h3>${ex.name}</h3><span class="dose">${prescribed(ex)}</span></div><div class="cue">${ex.how}</div><div class="avoid"><strong>Avoid:</strong> ${ex.avoid}</div><div class="actions"><a class="btn primary" href="${demo(ex.query)}" target="_blank">Watch Demo</a></div></div>`}).join('')}
+function startTimer(sec){clearInterval(timerInterval);let t=sec,draw=()=>timerDisplay.textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');draw();timerInterval=setInterval(()=>{t--;draw();if(t<=0){clearInterval(timerInterval);navigator.vibrate&&navigator.vibrate([200,100,200])}},1000)}
 init();
