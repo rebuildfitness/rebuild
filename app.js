@@ -24,6 +24,28 @@ let DATA=null,selectedDay=null,timerInterval=null;
 const KEY='rebuild_app_v2';
 const SCHEMA_VERSION=2;
 
+/* ---------------------------------------------------------------------
+   THEME
+   Purely a display preference, stored under its own localStorage key
+   (not inside the app's main data object / schema) so switching themes
+   never touches readiness/logs/drafts or bumps SCHEMA_VERSION. 'default'
+   is the original navy/blue palette; 'mono' is a black/gray/white
+   variant defined in index.html's <style> under [data-theme="mono"].
+   Functional status colors (readiness/deload red-yellow-green, and the
+   "Avoid" caution callout) intentionally stay the same in both themes.
+   ------------------------------------------------------------------- */
+const THEME_KEY='rebuild_theme';
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme',t==='mono'?'mono':'default');
+  if(themeToggle)themeToggle.textContent=t==='mono'?'⚪ Mono theme':'🔵 Classic theme';
+}
+function initTheme(){applyTheme(localStorage.getItem(THEME_KEY)||'default')}
+function toggleTheme(){
+  let next=(localStorage.getItem(THEME_KEY)||'default')==='mono'?'default':'mono';
+  localStorage.setItem(THEME_KEY,next);
+  applyTheme(next);
+}
+
 function blank(){return{schemaVersion:SCHEMA_VERSION,phase:'restore',phaseStart:dateKey(),readiness:{},daily:{},logs:[],drafts:{}}}
 
 // Loads persisted state, migrating from the older v1 key if present and
@@ -387,4 +409,5 @@ function openUndoChair(){
 
 function startTimer(sec){clearInterval(timerInterval);let t=sec,draw=()=>timerDisplay.textContent=String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0');draw();timerInterval=setInterval(()=>{t--;draw();if(t<=0){clearInterval(timerInterval);navigator.vibrate&&navigator.vibrate([200,100,200])}},1000)}
 
+initTheme();
 init();

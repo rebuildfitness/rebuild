@@ -16,7 +16,7 @@
 // one, bumping this string is what forces old clients to drop stale caches
 // and pick up the fixed files after this REBUILD 2.2 defect-fix release.
 // ============================================================================
-const CACHE = 'rebuild-v2.2.2-20260811';
+const CACHE = 'rebuild-v2.2.3-20260811';
 const ASSETS = ['./', './index.html', './app.js', './data.json', './manifest.json', './icon-192.svg', './icon-512.svg'];
 
 self.addEventListener('install', e => {
