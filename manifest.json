@@ -1,11 +1,11 @@
 {
-  "name": "REBUILD 2.1",
+  "name": "REBUILD 2.2",
   "short_name": "REBUILD",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#F3F7FA",
   "theme_color": "#17324D",
-  "description": "Long-term strength, rehabilitation, joint capacity and performance training system.",
+  "description": "Adaptive strength, joint-capacity, rehabilitation, readiness and performance training system.",
   "icons": [
     {
       "src": "icon-192.svg",

@@ -509,6 +509,56 @@
       "how": "Squeeze a ball or pad between the knees with pelvis and trunk quiet.",
       "avoid": "Do not use maximal effort or provoke groin pain.",
       "query": "adductor squeeze isometric"
+    },
+    "diaphragm_breath": {
+      "name": "90/90 Diaphragmatic Breathing",
+      "sets": "1",
+      "reps": "5 slow breaths",
+      "rest": "\u2014",
+      "category": "Morning Reset",
+      "how": "Lie on your back with feet supported and breathe into the lower ribs and abdomen.",
+      "avoid": "Do not force deep breaths or arch the low back.",
+      "query": "90 90 diaphragmatic breathing exercise"
+    },
+    "heel_slide": {
+      "name": "Supine Heel Slide",
+      "sets": "1",
+      "reps": "6/side",
+      "rest": "\u2014",
+      "category": "Morning Reset",
+      "how": "Slide one heel toward the hips and back while the pelvis remains quiet.",
+      "avoid": "Use a comfortable range; do not force knee or Achilles range.",
+      "query": "supine heel slide exercise"
+    },
+    "pelvic_tilt": {
+      "name": "Gentle Pelvic Tilt",
+      "sets": "1",
+      "reps": "6\u20138",
+      "rest": "\u2014",
+      "category": "Morning Reset",
+      "how": "Gently alternate between neutral and a small pelvic tilt to restore comfortable lumbar motion.",
+      "avoid": "Keep the movement small and pain-free.",
+      "query": "pelvic tilt exercise physical therapy"
+    },
+    "shoulder_cars": {
+      "name": "Shoulder CARs",
+      "sets": "1",
+      "reps": "3/side",
+      "rest": "\u2014",
+      "category": "Morning Reset",
+      "how": "Move the shoulder through a slow controlled circle while keeping ribs quiet.",
+      "avoid": "Use pain-free range and do not shrug.",
+      "query": "shoulder CARs exercise"
+    },
+    "standing_reach": {
+      "name": "Supported Tall Reach",
+      "sets": "1",
+      "reps": "5 breaths",
+      "rest": "\u2014",
+      "category": "Morning Reset",
+      "how": "Stand with support nearby, reach tall, gently extend the hips and breathe.",
+      "avoid": "Do not force lumbar extension or load the forefoot aggressively.",
+      "query": "standing overhead reach mobility"
     }
   },
   "phases": [
@@ -1406,6 +1456,22 @@
           "wrist_ext"
         ]
       }
+    },
+    "morningReset": {
+      "name": "Morning Reset \u00b7 8\u201310 min",
+      "description": "Fresh-out-of-bed routine to restore gentle motion, breathing, joint control and readiness. This is not a workout.",
+      "items": [
+        "diaphragm_breath",
+        "pelvic_tilt",
+        "heel_slide",
+        "cat_camel",
+        "open_book",
+        "ankle_rock",
+        "wrist_cars",
+        "shoulder_cars",
+        "glute_bridge",
+        "standing_reach"
+      ]
     }
   },
   "designRules": {
@@ -1419,5 +1485,328 @@
       "Grip/wrist-flexor demand balanced with wrist/finger extensor work.",
       "Core emphasizes anti-extension, anti-rotation and lateral stability."
     ]
+  },
+  "substitutions": {
+    "smith_incline": [
+      "smith_bench",
+      "db_press"
+    ],
+    "smith_bench": [
+      "smith_incline",
+      "smith_bench_light"
+    ],
+    "cable_row": [
+      "lat_pd"
+    ],
+    "belt_squat": [
+      "smith_box",
+      "smith_legpress",
+      "box_squat"
+    ],
+    "smith_legpress": [
+      "belt_squat",
+      "smith_box"
+    ],
+    "smith_rdl": [
+      "pullthrough",
+      "trap_high"
+    ],
+    "trap_high": [
+      "smith_rdl",
+      "pullthrough"
+    ],
+    "db_press": [
+      "smith_bench_light"
+    ],
+    "lat_pd": [
+      "cable_row"
+    ],
+    "hamcurl": [
+      "pullthrough"
+    ],
+    "seated_calf": [
+      "dl_calf"
+    ],
+    "dl_calf": [
+      "seated_calf"
+    ]
+  },
+  "bodyCapacity": {
+    "Achilles / Calf": {
+      "metrics": [
+        "morning stiffness",
+        "pain before/during/after",
+        "next-day response",
+        "assisted single-leg calf raise reps",
+        "heel-height quality",
+        "seated calf load",
+        "standing calf load"
+      ],
+      "levels": [
+        "Restore",
+        "Controlled Strength",
+        "Single-Leg Capacity",
+        "Energy Storage",
+        "Return to Run",
+        "Athletic Return"
+      ],
+      "current": "Controlled Strength / Single-Leg Capacity"
+    },
+    "Knees": {
+      "metrics": [
+        "pain response",
+        "step-down control",
+        "TKE tolerance",
+        "Spanish squat tolerance",
+        "squat control"
+      ],
+      "levels": [
+        "Restore",
+        "Capacity",
+        "Strength",
+        "Maintain"
+      ],
+      "current": "Capacity"
+    },
+    "Hips": {
+      "metrics": [
+        "hip rotation comfort",
+        "abduction control",
+        "hinge control",
+        "adductor tolerance"
+      ],
+      "levels": [
+        "Restore",
+        "Capacity",
+        "Strength",
+        "Maintain"
+      ],
+      "current": "Capacity / Strength"
+    },
+    "Lumbar / Core": {
+      "metrics": [
+        "pain response",
+        "bird-dog control",
+        "side-plank tolerance",
+        "hinge control",
+        "loaded-bracing tolerance"
+      ],
+      "levels": [
+        "Restore",
+        "Stability",
+        "Load Tolerance",
+        "Strength",
+        "Maintain"
+      ],
+      "current": "Stability / Load Tolerance"
+    },
+    "Shoulders / Scapula": {
+      "metrics": [
+        "overhead comfort",
+        "external-rotation tolerance",
+        "wall-slide control",
+        "press/pull balance"
+      ],
+      "levels": [
+        "Restore",
+        "Capacity",
+        "Strength",
+        "Maintain"
+      ],
+      "current": "Capacity / Maintain"
+    },
+    "Wrist / Forearm": {
+      "metrics": [
+        "pain response",
+        "pronation/supination",
+        "extension/flexion",
+        "grip tolerance",
+        "extensor capacity"
+      ],
+      "levels": [
+        "Restore",
+        "Capacity",
+        "Strength",
+        "Maintain"
+      ],
+      "current": "Capacity"
+    }
+  },
+  "supersets": {
+    "foundation": {
+      "Monday": [
+        [
+          "smith_incline",
+          "cable_row"
+        ],
+        [
+          "smith_bench",
+          "lat_pd"
+        ],
+        [
+          "cable_curl",
+          "rope_pd"
+        ],
+        [
+          "pallof",
+          "seated_calf"
+        ]
+      ],
+      "Wednesday": [
+        [
+          "belt_squat",
+          "hamcurl"
+        ],
+        [
+          "smith_legpress",
+          "hip_abd"
+        ],
+        [
+          "smith_rdl",
+          "dead_bug"
+        ],
+        [
+          "dl_calf",
+          "tib_raise"
+        ]
+      ],
+      "Friday": [
+        [
+          "smith_bench",
+          "cable_row"
+        ],
+        [
+          "smith_box",
+          "db_press"
+        ],
+        [
+          "cable_curl",
+          "rope_pd"
+        ],
+        [
+          "suitcase_hold",
+          "seated_calf"
+        ]
+      ]
+    },
+    "build": {
+      "Monday": [
+        [
+          "smith_incline",
+          "cable_row"
+        ],
+        [
+          "smith_bench",
+          "lat_pd"
+        ],
+        [
+          "cable_curl",
+          "rope_pd"
+        ],
+        [
+          "db_press",
+          "seated_calf"
+        ]
+      ],
+      "Wednesday": [
+        [
+          "belt_squat",
+          "hamcurl"
+        ],
+        [
+          "smith_legpress",
+          "hip_abd"
+        ],
+        [
+          "smith_rdl",
+          "dead_bug"
+        ],
+        [
+          "dl_calf",
+          "assisted_sl_calf"
+        ]
+      ],
+      "Friday": [
+        [
+          "smith_bench",
+          "cable_row"
+        ],
+        [
+          "smith_box",
+          "db_press"
+        ],
+        [
+          "cable_curl",
+          "rope_pd"
+        ],
+        [
+          "cable_crunch",
+          "seated_calf"
+        ]
+      ]
+    },
+    "recomp": {
+      "Monday": [
+        [
+          "smith_incline",
+          "cable_row"
+        ],
+        [
+          "smith_bench",
+          "lat_pd"
+        ],
+        [
+          "db_press",
+          "pallof"
+        ],
+        [
+          "cable_curl",
+          "rope_pd"
+        ]
+      ],
+      "Wednesday": [
+        [
+          "belt_squat",
+          "hamcurl"
+        ],
+        [
+          "smith_legpress",
+          "hip_abd"
+        ],
+        [
+          "smith_rdl",
+          "dead_bug"
+        ],
+        [
+          "seated_calf",
+          "assisted_sl_calf"
+        ]
+      ],
+      "Friday": [
+        [
+          "smith_bench",
+          "cable_row"
+        ],
+        [
+          "smith_box",
+          "db_press"
+        ],
+        [
+          "cable_curl",
+          "rope_pd"
+        ],
+        [
+          "cable_crunch",
+          "suitcase_hold"
+        ]
+      ]
+    }
+  },
+  "weeklyTargets": {
+    "pullToPush": "During rebuilding, target a slight pulling/rear-shoulder bias: roughly 1.1\u20131.3 pulling/rear-shoulder work exposures for each pressing exposure, without forcing an exact set ratio.",
+    "squatToHinge": "Maintain both knee-dominant and hip-dominant lower-body work each week.",
+    "calfToTibialis": "Pair meaningful plantarflexor work with tibialis/anterior lower-leg exposure.",
+    "gripToExtensors": "Pair grip/flexor demand with wrist/finger extensor work.",
+    "core": "Include anti-extension, anti-rotation and lateral-stability work across the week."
   }
 }

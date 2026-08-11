@@ -1,14 +1,28 @@
-# REBUILD 2.1
+# REBUILD 2.2
 
-Adds knee capacity/prehab, whole-body Joint & Tissue Capacity, sleep-quality tracking, antagonistic movement balance, and the optional 5-minute Undo the Chair sequence.
+## Major additions
+- Fresh-out-of-bed Morning Reset (8–10 minutes)
+- Body Capacity dashboard for Achilles, knees, hips, lumbar/core, shoulders/scapulae, and wrist/forearm
+- Richer Achilles capacity framework and metrics
+- Immediate post-workout Achilles/back pain response capture
+- Approved exercise substitutions
+- Intelligent antagonistic supersets for time efficiency
+- Movement-balance dashboard
+- Sleep quality, duration, fatigue, and soreness in readiness
+- Improved deload warning logic
+- Persistent Joint & Tissue Capacity system
+- Existing long-term periodization remains intact
 
-## Achilles status
-Controlled progressive resistance training is included. Running, jumping, hopping, sprinting, cutting and other ballistic athletic work remain excluded until appropriate objective milestones and clinician guidance support them.
+## Morning Reset
+Designed as gentle readiness work, not exercise:
+breathing → pelvic/spinal motion → hip/knee motion → thoracic rotation → ankle/wrist/shoulder motion → glute activation → supported tall reach.
 
-## Update
-1. Export your current REBUILD backup.
-2. Replace the files in your existing GitHub repository with these files.
-3. Commit the changes. Keep the same Pages settings and URL.
-4. Open the site once in Safari and refresh, then close/reopen the Home Screen app.
+## Update process
+1. Export a backup from your current REBUILD app.
+2. Replace the files in the existing GitHub repository with this package.
+3. Commit directly to main.
+4. Keep GitHub Pages settings unchanged.
+5. Open the site in Safari and refresh, then close/reopen the Home Screen app.
 
-Existing REBUILD 2.0 local data uses the same storage key and is designed to remain available after this update.
+## Medical guardrail
+The app is a training decision aid, not a diagnostic tool. New neurologic symptoms, significant weakness, bowel/bladder changes, severe worsening pain, or other concerning symptoms require medical evaluation.
