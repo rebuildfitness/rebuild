@@ -1,0 +1,523 @@
+{
+  "exerciseLibrary": {
+    "cat_camel": {
+      "name": "Cat-Camel",
+      "dose": "6\u20138 controlled reps",
+      "how": "Gently move between rounded and arched spine positions.",
+      "avoid": "Move slowly. This is not a deep stretch for the lower back.",
+      "query": "cat camel exercise physical therapy demonstration"
+    },
+    "open_book": {
+      "name": "Open Book Thoracic Rotation",
+      "dose": "6/side",
+      "how": "Lie on your side with knees stacked and rotate through the upper back.",
+      "avoid": "Keep knees together. Do not force the low back to twist.",
+      "query": "open book thoracic rotation exercise demonstration"
+    },
+    "9090": {
+      "name": "90/90 Hip Rotations",
+      "dose": "6/side",
+      "how": "Rotate slowly between 90/90 hip positions.",
+      "avoid": "Use your hands for support. Do not rush or force range.",
+      "query": "90 90 hip rotation exercise demonstration"
+    },
+    "adductor": {
+      "name": "Adductor Rock-Back",
+      "dose": "8/side",
+      "how": "From hands and knees, extend one leg to the side and rock hips back.",
+      "avoid": "Keep spine neutral. Move from hips, not low back.",
+      "query": "adductor rock back exercise demonstration"
+    },
+    "ankle_rock": {
+      "name": "Supported Ankle Rock / Knee-to-Wall",
+      "dose": "8/side",
+      "how": "Drive knee forward over toes while keeping heel down.",
+      "avoid": "Comfortable range only on repaired Achilles side.",
+      "query": "knee to wall ankle dorsiflexion exercise demonstration"
+    },
+    "wrist_cars": {
+      "name": "Wrist CARs",
+      "dose": "5 each direction",
+      "how": "Slowly draw controlled wrist circles while keeping forearm still.",
+      "avoid": "Use the largest pain-free circle you can control.",
+      "query": "wrist CARs controlled articular rotations demonstration"
+    },
+    "curl_up": {
+      "name": "Modified McGill Curl-Up",
+      "dose": "2 \u00d7 6 holds of 8\u201310 sec",
+      "how": "One knee bent, one leg straight. Brace and slightly lift head/shoulders.",
+      "avoid": "Do not crunch repeatedly. Keep lumbar position stable.",
+      "query": "modified McGill curl up demonstration"
+    },
+    "bird_dog": {
+      "name": "Bird Dog",
+      "dose": "2 \u00d7 5/side with 5\u20138 sec holds",
+      "how": "Extend opposite arm and leg while keeping torso still.",
+      "avoid": "The goal is zero hip/lumbar movement.",
+      "query": "bird dog exercise demonstration physical therapy"
+    },
+    "side_plank": {
+      "name": "Side Plank from Knees",
+      "dose": "2 \u00d7 15\u201330 sec/side",
+      "how": "Elbow under shoulder. Lift hips until knees, hips, shoulders align.",
+      "avoid": "Do not rotate pelvis or shrug shoulder.",
+      "query": "modified side plank from knees demonstration"
+    },
+    "glute_bridge": {
+      "name": "Glute Bridge",
+      "dose": "2 \u00d7 10",
+      "how": "Brace, squeeze glutes, lift hips, stop before low back takes over.",
+      "avoid": "Avoid arching the lower back at the top.",
+      "query": "glute bridge exercise demonstration"
+    },
+    "short_foot": {
+      "name": "Short Foot",
+      "dose": "2 \u00d7 8/foot",
+      "how": "Gently shorten the foot by lifting the arch without curling toes.",
+      "avoid": "Keep toes relaxed.",
+      "query": "short foot exercise demonstration"
+    },
+    "band_er": {
+      "name": "Band External Rotation",
+      "dose": "2 \u00d7 12\u201315",
+      "how": "Elbow near side. Rotate forearm outward with light band resistance.",
+      "avoid": "Do not rotate your torso or shrug.",
+      "query": "band external rotation exercise demonstration"
+    },
+    "face_pull": {
+      "name": "Seated Band Face Pull",
+      "dose": "2 \u00d7 12\u201315",
+      "how": "Pull band toward face while seated, elbows high but shoulders down.",
+      "avoid": "Keep ribs down and avoid leaning back.",
+      "query": "seated band face pull demonstration"
+    },
+    "wall_slide": {
+      "name": "Scapular Wall Slide",
+      "dose": "2 \u00d7 8\u201310",
+      "how": "Slide arms up wall while keeping ribs controlled.",
+      "avoid": "Do not arch low back to get arms higher.",
+      "query": "scapular wall slide demonstration"
+    },
+    "wrist_prosup": {
+      "name": "Wrist Pronation/Supination",
+      "dose": "2 \u00d7 10/side",
+      "how": "Support forearm and rotate palm up/down using a hammer or light DB.",
+      "avoid": "Rotate forearm, not the wrist.",
+      "query": "wrist pronation supination hammer demonstration"
+    },
+    "tib_raise": {
+      "name": "Tibialis Raise",
+      "dose": "2 \u00d7 15",
+      "how": "Heels down, lift toes/forefoot toward shins, lower slowly.",
+      "avoid": "Do not rock your whole body.",
+      "query": "tibialis raise exercise demonstration"
+    },
+    "balance": {
+      "name": "Supported Single-Leg Balance",
+      "dose": "2 \u00d7 20\u201330 sec/side",
+      "how": "Stand near rack or wall and use fingertip support as needed.",
+      "avoid": "Alignment matters more than no-hand balance.",
+      "query": "supported single leg balance exercise demonstration"
+    },
+    "box_squat": {
+      "name": "Bodyweight Box Squat",
+      "dose": "2 \u00d7 8",
+      "how": "Sit to a box with controlled depth, stand smoothly.",
+      "avoid": "Tripod foot, brace, no lumbar collapse. Achilles controls depth.",
+      "query": "bodyweight box squat demonstration"
+    },
+    "hip_hinge": {
+      "name": "Dowel / Unloaded Hip Hinge",
+      "dose": "2 \u00d7 8",
+      "how": "Brace and push hips back while maintaining neutral trunk.",
+      "avoid": "Feel hamstrings/glutes. Do not round low back.",
+      "query": "dowel hip hinge exercise demonstration"
+    },
+    "smith_bench_light": {
+      "name": "Very Light Smith Bench",
+      "dose": "2 \u00d7 10",
+      "how": "Use light load to rehearse scapular control, neutral wrist, smooth press.",
+      "avoid": "Do not chase fatigue.",
+      "query": "smith machine bench press technique demonstration"
+    },
+    "cable_row": {
+      "name": "Seated Cable Row",
+      "dose": "2 \u00d7 10",
+      "how": "Tall torso, brace, pull through elbows, controlled return.",
+      "avoid": "Do not lean or jerk the weight.",
+      "query": "seated cable row exercise demonstration"
+    },
+    "db_press": {
+      "name": "Seated Light Dumbbell Press",
+      "dose": "2 \u00d7 8",
+      "how": "Press overhead while seated, ribs down and core braced.",
+      "avoid": "Do not arch lower back.",
+      "query": "seated dumbbell shoulder press demonstration"
+    },
+    "smith_incline": {
+      "name": "Smith Incline Bench Press",
+      "dose": "2 \u00d7 8\u201312",
+      "how": "Light, controlled incline press for upper chest.",
+      "avoid": "Keep shoulder blades controlled and wrists neutral.",
+      "query": "smith machine incline bench press demonstration"
+    },
+    "lat_pd": {
+      "name": "Lat Pulldown",
+      "dose": "2 \u00d7 8\u201312",
+      "how": "Pull bar toward upper chest with controlled shoulder blade movement.",
+      "avoid": "Do not lean back excessively.",
+      "query": "lat pulldown exercise demonstration"
+    },
+    "cable_curl": {
+      "name": "Cable Curl",
+      "dose": "2 \u00d7 10\u201315",
+      "how": "Curl with elbows stable and controlled lowering.",
+      "avoid": "Do not swing.",
+      "query": "cable biceps curl demonstration"
+    },
+    "rope_pd": {
+      "name": "Rope Pressdown",
+      "dose": "2 \u00d7 10\u201315",
+      "how": "Press rope down while keeping elbows near sides.",
+      "avoid": "Do not let shoulders roll forward.",
+      "query": "rope triceps pressdown demonstration"
+    },
+    "belt_squat": {
+      "name": "Belt Squat",
+      "dose": "2 \u00d7 8\u201312",
+      "how": "Light squat pattern with stable feet and trunk.",
+      "avoid": "Do not chase depth. Keep heel planted.",
+      "query": "belt squat exercise demonstration"
+    },
+    "smith_legpress": {
+      "name": "Smith Leg Press Attachment",
+      "dose": "2 \u00d7 8\u201312",
+      "how": "Controlled press with heel planted and even pressure through foot.",
+      "avoid": "Avoid bouncing or locking knees aggressively.",
+      "query": "smith machine leg press attachment demonstration"
+    },
+    "pullthrough": {
+      "name": "Cable Pull-Through",
+      "dose": "2 \u00d7 10\u201315",
+      "how": "Hinge hips back, then drive hips forward with glutes.",
+      "avoid": "This rebuilds hinge capacity before deadlifting.",
+      "query": "cable pull through exercise demonstration"
+    },
+    "hamcurl": {
+      "name": "Hamstring Curl",
+      "dose": "2 \u00d7 10\u201315",
+      "how": "Curl heels toward glutes under control.",
+      "avoid": "Avoid arching low back.",
+      "query": "hamstring curl exercise demonstration"
+    },
+    "hip_abd": {
+      "name": "Cable Hip Abduction",
+      "dose": "2 \u00d7 12\u201315/side",
+      "how": "Move leg out to side under control.",
+      "avoid": "Keep pelvis still.",
+      "query": "cable hip abduction demonstration"
+    },
+    "dead_bug": {
+      "name": "Dead Bug",
+      "dose": "2 \u00d7 8\u201310/side",
+      "how": "Brace and move opposite arm/leg while low back stays controlled.",
+      "avoid": "Do not let ribs flare.",
+      "query": "dead bug exercise demonstration"
+    },
+    "smith_bench": {
+      "name": "Smith Bench Press",
+      "dose": "2 \u00d7 8\u201312",
+      "how": "Light controlled horizontal press.",
+      "avoid": "No grinding, no maxing.",
+      "query": "smith machine bench press demonstration"
+    },
+    "pallof": {
+      "name": "Pallof Press",
+      "dose": "2 \u00d7 10/side",
+      "how": "Press cable/band forward while resisting rotation.",
+      "avoid": "Keep ribs down and pelvis still.",
+      "query": "pallof press demonstration"
+    },
+    "seated_calf": {
+      "name": "Seated Bent-Knee Calf Raise",
+      "dose": "3 \u00d7 10\u201315",
+      "how": "Load the soleus with knee bent; slow lowering.",
+      "avoid": "Progress gradually and track next-morning response.",
+      "query": "seated calf raise bent knee demonstration"
+    },
+    "dl_calf": {
+      "name": "Double-Leg Standing Calf Raise",
+      "dose": "3 \u00d7 10\u201315",
+      "how": "Rise using both legs, pause, lower slowly.",
+      "avoid": "No bouncing. Full controlled available range.",
+      "query": "double leg standing calf raise demonstration"
+    },
+    "assisted_sl_calf": {
+      "name": "Assisted Single-Leg Calf Raise",
+      "dose": "3 \u00d7 5\u20138",
+      "how": "Use hands to reduce load while practicing single-leg raise mechanics.",
+      "avoid": "Quality and heel height matter more than reps.",
+      "query": "assisted single leg calf raise demonstration"
+    },
+    "sl_ecc": {
+      "name": "Assisted Single-Leg Eccentric",
+      "dose": "2 \u00d7 5\u20136",
+      "how": "Rise with both legs, lower with repaired-side bias using support.",
+      "avoid": "Skip if control is poor or next-day stiffness increases.",
+      "query": "assisted single leg eccentric calf raise demonstration"
+    },
+    "inv_ev": {
+      "name": "Banded Inversion/Eversion",
+      "dose": "2 \u00d7 12\u201315 each",
+      "how": "Move ankle inward and outward against light band resistance.",
+      "avoid": "Small, controlled range.",
+      "query": "banded ankle inversion eversion demonstration"
+    }
+  },
+  "weeks12": {
+    "Sunday": {
+      "title": "Recovery + Mobility",
+      "items": [
+        "cat_camel",
+        "open_book",
+        "9090",
+        "adductor",
+        "ankle_rock",
+        "wrist_cars"
+      ],
+      "notes": "10,000 steps as tolerated. Break walking into manageable bouts."
+    },
+    "Monday": {
+      "title": "Foundation + Big Five Primer",
+      "items": [
+        "cat_camel",
+        "open_book",
+        "9090",
+        "adductor",
+        "ankle_rock",
+        "wrist_cars",
+        "curl_up",
+        "bird_dog",
+        "side_plank",
+        "glute_bridge",
+        "short_foot",
+        "band_er",
+        "face_pull",
+        "wall_slide",
+        "wrist_prosup",
+        "tib_raise",
+        "balance",
+        "box_squat",
+        "hip_hinge",
+        "smith_bench_light",
+        "cable_row",
+        "db_press",
+        "bird_dog",
+        "seated_calf",
+        "dl_calf",
+        "balance",
+        "short_foot",
+        "tib_raise"
+      ],
+      "notes": "Keep effort around RPE 4\u20135. Finish feeling capable of more."
+    },
+    "Tuesday": {
+      "title": "Easy Zone 2 + Wrist/Shoulder Prehab",
+      "cardio": "25\u201330 min easy exercise bike",
+      "items": [
+        "band_er",
+        "face_pull",
+        "wall_slide",
+        "wrist_cars",
+        "wrist_prosup"
+      ],
+      "notes": "Conversational effort. No intervals."
+    },
+    "Wednesday": {
+      "title": "Foundation + Big Five Primer",
+      "items": [
+        "cat_camel",
+        "open_book",
+        "9090",
+        "adductor",
+        "ankle_rock",
+        "wrist_cars",
+        "curl_up",
+        "bird_dog",
+        "side_plank",
+        "glute_bridge",
+        "short_foot",
+        "band_er",
+        "face_pull",
+        "wall_slide",
+        "wrist_prosup",
+        "tib_raise",
+        "balance",
+        "box_squat",
+        "hip_hinge",
+        "smith_bench_light",
+        "cable_row",
+        "db_press",
+        "bird_dog",
+        "seated_calf",
+        "dl_calf",
+        "balance",
+        "short_foot",
+        "tib_raise"
+      ],
+      "notes": "Quality and control over fatigue."
+    },
+    "Thursday": {
+      "title": "Easy Zone 2 + Mobility",
+      "cardio": "25\u201330 min easy exercise bike",
+      "items": [
+        "cat_camel",
+        "open_book",
+        "9090",
+        "adductor",
+        "ankle_rock",
+        "balance"
+      ],
+      "notes": "No intervals. Keep Achilles response stable."
+    },
+    "Friday": {
+      "title": "Foundation + Big Five Primer",
+      "items": [
+        "cat_camel",
+        "open_book",
+        "9090",
+        "adductor",
+        "ankle_rock",
+        "wrist_cars",
+        "curl_up",
+        "bird_dog",
+        "side_plank",
+        "glute_bridge",
+        "short_foot",
+        "band_er",
+        "face_pull",
+        "wall_slide",
+        "wrist_prosup",
+        "tib_raise",
+        "balance",
+        "box_squat",
+        "hip_hinge",
+        "smith_bench_light",
+        "cable_row",
+        "db_press",
+        "bird_dog",
+        "seated_calf",
+        "dl_calf",
+        "balance",
+        "short_foot",
+        "tib_raise"
+      ],
+      "notes": "No heavy trap bar, RDL, squat, or bench."
+    },
+    "Saturday": {
+      "title": "Recovery + Mobility",
+      "items": [
+        "cat_camel",
+        "open_book",
+        "9090",
+        "adductor",
+        "ankle_rock",
+        "wrist_cars"
+      ],
+      "notes": "10,000 steps as tolerated. Recovery day."
+    }
+  },
+  "weeks34": {
+    "Sunday": {
+      "title": "Recovery + Mobility",
+      "items": [
+        "cat_camel",
+        "open_book",
+        "9090",
+        "adductor",
+        "ankle_rock",
+        "wrist_cars"
+      ],
+      "notes": "10,000 steps as tolerated. Break walking into manageable bouts."
+    },
+    "Monday": {
+      "title": "Light Upper Body",
+      "items": [
+        "smith_incline",
+        "cable_row",
+        "lat_pd",
+        "db_press",
+        "cable_curl",
+        "rope_pd",
+        "curl_up",
+        "bird_dog"
+      ],
+      "notes": "RPE 5\u20136. Keep 4\u20135 reps in reserve."
+    },
+    "Tuesday": {
+      "title": "Easy Zone 2 + Wrist/Shoulder Prehab",
+      "cardio": "25\u201330 min easy exercise bike",
+      "items": [
+        "band_er",
+        "face_pull",
+        "wall_slide",
+        "wrist_cars",
+        "wrist_prosup"
+      ],
+      "notes": "Conversational effort. No intervals."
+    },
+    "Wednesday": {
+      "title": "Light Lower Body",
+      "items": [
+        "belt_squat",
+        "smith_legpress",
+        "pullthrough",
+        "hamcurl",
+        "hip_abd",
+        "dead_bug",
+        "seated_calf",
+        "dl_calf"
+      ],
+      "notes": "Light load only. Stable feet and trunk."
+    },
+    "Thursday": {
+      "title": "Easy Zone 2 + Mobility",
+      "cardio": "25\u201330 min easy exercise bike",
+      "items": [
+        "cat_camel",
+        "open_book",
+        "9090",
+        "adductor",
+        "ankle_rock",
+        "balance"
+      ],
+      "notes": "No intervals. Keep Achilles response stable."
+    },
+    "Friday": {
+      "title": "Light Full Body",
+      "items": [
+        "smith_bench",
+        "cable_row",
+        "belt_squat",
+        "pullthrough",
+        "db_press",
+        "pallof",
+        "seated_calf",
+        "dl_calf"
+      ],
+      "notes": "Controlled tissue exposure, not fatigue."
+    },
+    "Saturday": {
+      "title": "Recovery + Mobility",
+      "items": [
+        "cat_camel",
+        "open_book",
+        "9090",
+        "adductor",
+        "ankle_rock",
+        "wrist_cars"
+      ],
+      "notes": "10,000 steps as tolerated. Recovery day."
+    }
+  }
+}
